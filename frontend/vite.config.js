@@ -87,6 +87,7 @@ function htaccessPlugin(env) {
 </IfModule>
 
 # ── Misc ──────────────────────────────────────────────────────
+DirectoryIndex index.html
 Options -Indexes
 ErrorDocument 404 /index.html
 
