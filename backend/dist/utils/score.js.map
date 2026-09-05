@@ -1,0 +1,1 @@
+{"version":3,"file":"score.js","sourceRoot":"","sources":["../../src/utils/score.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,mBAAmB,CAAC,QAAgB,EAAE,KAAa;IAC/D,IAAI,KAAK,IAAI,CAAC,EAAE,CAAC;QACb,MAAM,IAAI,KAAK,CAAC,oCAAoC,CAAC,CAAC;IAC1D,CAAC;IAED,OAAO,CAAC,QAAQ,GAAG,KAAK,CAAC,GAAG,GAAG,CAAC;AACpC,CAAC"}
