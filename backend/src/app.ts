@@ -1,5 +1,7 @@
 import express from 'express';
 import type { Application, Request, Response } from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
@@ -14,6 +16,9 @@ import studentRouter from './routes/student.routes.js';
 import uploadRouter from './routes/upload.routes.js';
 import adminRouter from './routes/admin.routes.js';
 import publicRouter from './routes/public.routes.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Builds the Express application.
@@ -102,10 +107,6 @@ export function createApp(): Application {
   app.get('/health', health);
   app.get('/api/health', health);
 
-  app.get('/', (_req: Request, res: Response) => {
-    res.status(200).json({ message: 'NTI Olympiad API', docs: '/api/health' });
-  });
-
   // ── Routes ───────────────────────────────────────────────────
   app.use('/api', globalLimiter);
   app.use('/api/auth', authLimiter, authRouter);
@@ -114,9 +115,21 @@ export function createApp(): Application {
   app.use('/api', uploadRouter);
   app.use('/api', publicRouter);
 
+  // ── Serve frontend (production) ─────────────────────────────
+  // The build step copies frontend/dist/* into backend/public/.
+  const publicDir = path.resolve(__dirname, '..', 'public');
+  app.use(express.static(publicDir));
+
+  // SPA catch-all: any non-API GET that doesn't match a static file
+  // returns index.html so React Router handles client-side routing.
+  app.get('*', (_req: Request, res: Response) => {
+    res.sendFile(path.join(publicDir, 'index.html'));
+  });
+
   // ── Terminal handlers ────────────────────────────────────────
   app.use(notFoundHandler);
   app.use(errorHandler);
 
   return app;
 }
+
