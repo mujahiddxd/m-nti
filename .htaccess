@@ -1,0 +1,12 @@
+# LiteSpeed Passenger Configuration for Node.js
+<IfModule litespeed>
+  # Tell LiteSpeed this is a Node.js app
+  PassengerAppType node
+  
+  # The entry point of the app
+  PassengerStartupFile index.js
+
+  # Route all traffic to the Node.js app
+  RewriteEngine On
+  RewriteRule ^(.*)$ - [E=INFO:$1]
+</IfModule>
