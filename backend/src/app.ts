@@ -122,7 +122,8 @@ export function createApp(): Application {
 
   // SPA catch-all: any non-API GET that doesn't match a static file
   // returns index.html so React Router handles client-side routing.
-  app.get('*', (_req: Request, res: Response) => {
+  app.get('/{*path}', (req: Request, res: Response, next) => {
+    if (req.path.startsWith('/api/')) return next();
     res.sendFile(path.join(publicDir, 'index.html'));
   });
 
