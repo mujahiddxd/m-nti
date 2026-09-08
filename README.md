@@ -2,7 +2,7 @@
 
 A web platform for running the National Talent Identification (NTI) Olympiad:
 school registration, student list submission, payment verification, syllabus
-and previous-year papers, results, and an admin panel to administer it all.
+and previous-year papers, results, and an admin panel to administer it all.........
 
 ## Documentation
 
